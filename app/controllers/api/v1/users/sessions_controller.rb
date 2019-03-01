@@ -27,8 +27,8 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
 
   private
 
-  def respond_with(_resource, _opts = {})
-    render json: { success: true, auth: { logged: true, jwt_token: request.env['warden-jwt_auth.token'] }, info: { message: 'Bienvenido!', type: 'success' } }
+  def respond_with(resource, _opts = {})
+    render json: { success: true, auth: { logged: true, jwt_token: request.env['warden-jwt_auth.token'], admin: resource.admin}, info: { message: 'Bienvenido!', type: 'success' } }
   end
 
   def respond_to_on_destroy

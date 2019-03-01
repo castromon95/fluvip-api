@@ -32,13 +32,13 @@ class Api::V1::Users::ConfirmationsController < Devise::ConfirmationsController
 
   def respond_with(resource, _opts = {})
     if resource.blank?
-      render json: { success: true, info: { message: find_message('send_instructions'), type: 'success' } }
+      info_response(true, find_message('send_instructions'), 'success')
     elsif resource.is_a?(ActiveModel::Errors)
-      render json: { success: false, info: { message: resource.full_messages.first, type: 'error' } }
+      info_response(false, resource.full_messages.first, 'error')
     elsif resource.errors.any?
-      render json: { success: false, info: { message: resource.errors.full_messages.first, type: 'error' } }
+      info_response(false, resource.errors.full_messages.first, 'error')
     else
-      render json: { success: true, info: { message: find_message('confirmed'), type: 'success' } }
+      info_response(true, find_message('confirmed'), 'success')
     end
   end
 

@@ -36,11 +36,11 @@ class Api::V1::Users::PasswordsController < Devise::PasswordsController
 
   def respond_with(resource, _opts = {})
     if resource.blank?
-      render json: { success: true, data: { message: find_message('send_instructions') } }
+      info_response(true, find_message('send_instructions'), 'success')
     elsif resource.errors.any?
-      render json: { success: false, data: { message: resource.errors.full_messages.first } }
+      info_response(false, resource.errors.full_messages.first, 'error')
     else
-      render json: { success: true, data: { message: find_message('updated') } }
+      info_response(true, find_message('updated'), 'success')
     end
   end
 

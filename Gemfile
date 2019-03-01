@@ -10,7 +10,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.8'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -26,15 +26,17 @@ gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-gem 'rack-cors', '~> 1.0', '>= 1.0.2', require: 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 
 # Pry - Better console interface
 gem 'pry', '~> 0.11.3'
 gem 'pry-rails', '~> 0.3.6'
 
 # Authentications gems
-# gem 'devise', '~> 4.6', '>= 4.6.1'
+# gem 'users', '~> 4.6', '>= 4.6.1'
 gem 'devise-jwt', '~> 0.5.8'
+# Authorization gems
+gem 'pundit', '~> 2.0', '>= 2.0.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,5 +1,5 @@
 <p>Welcome <%= @email %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>You can confirm your account email for FLUVIP through the link below:</p>
 
-<p><%= link_to 'Confirm my account', "http://localhost:3000?confirmation_token=#{@token}" %></p>
+<p><%= link_to 'Confirm my account', "#{ENV['FRONT_URL']}?confirmation_token=#{@token}" %></p>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -12,7 +12,6 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    ProfileService::ProfileCreator.execute(@user) if @user.persisted?
   end
 
   # GET /resource/edit
@@ -42,9 +41,9 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, profile_attributes: [:name, :last_name, :phone]])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
@@ -65,11 +64,7 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
 
   def respond_with(resource, _opts = {})
     if resource.errors.any?
-      render json: { success: false,
-                     info: {
-                       message: resource.errors.full_messages.first,
-                       type: 'error'
-                     } }
+      info_response(false, resource.errors.full_messages.first, 'error')
     elsif resource.active_for_authentication?
       render json: { success: true,
                      auth: {
@@ -77,11 +72,7 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
                        jwt_token: request.env['warden-jwt_auth.token']
                      } }
     else
-      render json: { success: true,
-                     info: {
-                       message: find_message("signed_up_but_#{resource.inactive_message}"),
-                       type: 'success'
-                     } }
+      info_response(true, find_message("signed_up_but_#{resource.inactive_message}"), 'success')
     end
   end
 end

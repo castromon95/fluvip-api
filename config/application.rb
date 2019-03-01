@@ -37,14 +37,13 @@ module FluvipApi
     config.active_record.default_timezone = :local
 
     # Rack-cors configuration
-    config.middleware.insert_before 0, Rack::Cors do
+    Rails.application.config.middleware.insert_before Warden::Manager, Rack::Cors, debug: true, logger: Rails.logger do
+
       allow do
         origins '*'
-        resource '/*',
+        resource '*',
                  headers: :any,
-                 methods: :any,
-                 expose: %w(Authorization),
-                 max_age: 600
+                 methods: [:get, :post, :options]
       end
     end
 

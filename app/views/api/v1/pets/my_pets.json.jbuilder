@@ -1,0 +1,1 @@
+json.partial! 'api/v1/partials/pet_list', pets: @pets

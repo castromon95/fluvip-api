@@ -1,12 +1,19 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_one :profile
+  has_many :pets
+  accepts_nested_attributes_for :profile
+
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
+  # Active Record Callbacks
+  before_create do
+    self.admin ||= false
+  end
+
   def jwt_payload
-    { iss: 'Limitless SAS' }
+    { iss: 'FLUVIP' }
   end
 
 end

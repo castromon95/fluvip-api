@@ -12,6 +12,6 @@ class ApiVersion
 
   def check_headers(headers)
     accept = headers[:accept]
-    accept&.include?("medic_codes.api.#{version}")
+    accept&.include?("fluvip-back.api.#{version}")
   end
 end
