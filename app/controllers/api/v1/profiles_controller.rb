@@ -29,6 +29,6 @@ class Api::V1::ProfilesController < ApplicationController
   end
 
   def retrieve_profile
-    @profile = Profile.find_by_user_id(params[:id])
+    @profile = Profile.find(params[:id])
   end
 end

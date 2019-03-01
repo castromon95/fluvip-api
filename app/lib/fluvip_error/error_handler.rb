@@ -13,7 +13,7 @@ module FluvipError
       render json: { success: false,
                      info: {
                          message: message,
-                         type: 'Error'
+                         type: 'error'
                      } }, status: status
     end
 

@@ -38,6 +38,14 @@ gem 'devise-jwt', '~> 0.5.8'
 # Authorization gems
 gem 'pundit', '~> 2.0', '>= 2.0.1'
 
+# Testing gems
+# gem 'rspec', '~> 3.8'
+gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
+gem 'simplecov', '~> 0.16.1'
+gem 'fabrication', '~> 2.20', '>= 2.20.1'
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
